@@ -25,22 +25,17 @@ fun TopAppBar(
 ) {
     CenterAlignedTopAppBar(
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.background,
-            titleContentColor = MaterialTheme.colorScheme.onPrimary,
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            titleContentColor = MaterialTheme.colorScheme.onBackground,
         ),
         title = {
-            Text(
-                name,
-                color = MaterialTheme.colorScheme.onPrimary,
-                style = MaterialTheme.typography.titleLarge
-            )
+            Text(name, style = MaterialTheme.typography.titleLarge)
         },
         navigationIcon = {
             IconButton(onClick = { onClickDrawer() }) {
                 Icon(
                     imageVector = Icons.Filled.Menu,
                     contentDescription = "Localized description",
-                    tint = MaterialTheme.colorScheme.onPrimary
                 )
             }
         },
