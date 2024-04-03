@@ -14,7 +14,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             StoreManagementTheme {
-                MainScreen("Home")
+                MainScreen()
             }
         }
     }
@@ -25,6 +25,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     StoreManagementTheme {
-        MainScreen("Home")
+        MainScreen()
     }
 }
