@@ -1,6 +1,6 @@
 package com.store.storemanagement.domain.model
 
-data class MostPopularPlant(
+data class Plant(
     val title: String,
     val image: String,
     val categoryPlant: CategoryPlant,

@@ -75,7 +75,8 @@ fun TopAppBarHome(
                         .clickable { onClickDrawer() }
                 )
             }
-        }
+        },
+        scrollBehavior = scrollBehavior
     )
 }
 

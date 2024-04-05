@@ -1,7 +1,6 @@
 package com.store.storemanagement.screens.main
 
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -9,12 +8,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
-import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
-import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -38,15 +34,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.store.storemanagement.R
 import com.store.storemanagement.core.resource.InputOutLinedTextField
+import com.store.storemanagement.core.resource.NonLazyGrid
 import com.store.storemanagement.domain.model.CategoryPlant
-import com.store.storemanagement.domain.model.MostPopularPlant
+import com.store.storemanagement.domain.model.Plant
 import com.store.storemanagement.domain.model.TitleMostPopularPlant
-import com.store.storemanagement.ui.components.home.ItemListCategoryPlant
+import com.store.storemanagement.ui.components.home.BannerImageHome
 import com.store.storemanagement.ui.components.home.ItemListMostPopularPlant
-import com.store.storemanagement.ui.components.home.ItemListTitleMostPopular
+import com.store.storemanagement.ui.components.home.ItemListRecently
 import com.store.storemanagement.ui.components.home.NavigationDrawerBody
 import com.store.storemanagement.ui.components.home.NavigationDrawerHeader
 import com.store.storemanagement.ui.components.home.TopAppBarHome
+import com.store.storemanagement.ui.components.home.listCategoryPlant
+import com.store.storemanagement.ui.components.home.listTitleMostPopular
 import com.store.storemanagement.ui.theme.StoreManagementTheme
 import kotlinx.coroutines.launch
 
@@ -85,25 +84,25 @@ fun MainScreen() {
     }
     val mostPopularPlants = remember {
         listOf(
-            MostPopularPlant(
+            Plant(
                 "Emerald Fern Fronds (M)",
                 "https://plantzone.dexignzone.com/mobile/xhtml/assets/images/product/product1/pic1.png",
                 CategoryPlant("", ""),
                 80
             ),
-            MostPopularPlant(
+            Plant(
                 "Scarlet Petal Paradise (M)",
                 "https://plantzone.dexignzone.com/mobile/xhtml/assets/images/product/product1/pic2.png",
                 CategoryPlant("", ""),
                 99
             ),
-            MostPopularPlant(
+            Plant(
                 "Silver Leaf Serenity (M)",
                 "https://plantzone.dexignzone.com/mobile/xhtml/assets/images/product/product1/pic3.png",
                 CategoryPlant("", ""),
                 49
             ),
-            MostPopularPlant(
+            Plant(
                 "Royal Bluebell Bliss (M)",
                 "https://plantzone.dexignzone.com/mobile/xhtml/assets/images/product/product1/pic4.png",
                 CategoryPlant("", ""),
@@ -125,11 +124,7 @@ fun MainScreen() {
             }
         },
     ) {
-
         Scaffold(
-            modifier = Modifier
-                .fillMaxSize()
-                .nestedScroll(scrollBehavior.nestedScrollConnection),
             containerColor = MaterialTheme.colorScheme.background,
             topBar = {
                 TopAppBarHome(scrollBehavior, onClickDrawer = {
@@ -142,55 +137,77 @@ fun MainScreen() {
             },
         ) { innerPadding ->
             val selectedIndex = remember { mutableIntStateOf(0) }
-            Column(
+            LazyColumn(
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .fillMaxSize()
                     .nestedScroll(scrollBehavior.nestedScrollConnection)
                     .padding(innerPadding)
             ) {
-                InputOutLinedTextField()
-                Spacer(modifier = Modifier.padding(8.dp))
-                Text(
-                    text = "Find Plant Category",
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.padding(horizontal = 16.dp)
-                )
-                LazyRow(contentPadding = PaddingValues(16.dp, 20.dp)) {
-                    items(
-                        items = categoryPlants,
-                        itemContent = { ItemListCategoryPlant(item = it) })
-                }
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
-                ) {
-                    Text(
-                        text = "Most Popular Products",
-                        style = MaterialTheme.typography.titleMedium
-                    )
-                    Icon(
-                        painter = painterResource(id = R.drawable.baseline_arrow_forward_24),
-                        contentDescription = null,
-                        modifier = Modifier.align(Alignment.CenterEnd)
-                    )
-                }
-                LazyRow(contentPadding = PaddingValues(16.dp, 20.dp)) {
-                    itemsIndexed(titleMostPopularPlants) { index, list ->
-                        ItemListTitleMostPopular(list,
-                            selected = selectedIndex.intValue == index,
-                            clickAction = { selectedIndex.intValue = index })
+                item { InputOutLinedTextField() }
+                item { Spacer(modifier = Modifier.padding(8.dp)) }
+                item {
+                    Column(modifier = Modifier.fillMaxWidth()) {
+                        Text(
+                            text = "Find Plant Category",
+                            style = MaterialTheme.typography.titleMedium,
+                            modifier = Modifier.padding(horizontal = 16.dp)
+                        )
+                        LazyRow(contentPadding = PaddingValues(16.dp, 20.dp)) {
+                            listCategoryPlant(categoryPlants)
+                        }
                     }
                 }
-                LazyVerticalStaggeredGrid(
-                    columns = StaggeredGridCells.Fixed(2),
-                    verticalItemSpacing = 4.dp,
-                    horizontalArrangement = Arrangement.spacedBy(24.dp),
-                    contentPadding = PaddingValues(horizontal = 16.dp),
-                    userScrollEnabled = false
-                ) {
-                    items(mostPopularPlants) { item ->
-                        ItemListMostPopularPlant(item)
+                item {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                    ) {
+                        Text(
+                            text = "Most Popular Products",
+                            style = MaterialTheme.typography.titleMedium
+                        )
+                        Icon(
+                            painter = painterResource(id = R.drawable.baseline_arrow_forward_24),
+                            contentDescription = null,
+                            modifier = Modifier.align(Alignment.CenterEnd)
+                        )
+                    }
+                    LazyRow(contentPadding = PaddingValues(16.dp, 20.dp)) {
+                        listTitleMostPopular(
+                            titleMostPopularPlants,
+                            selectedIndex.intValue
+                        ) { selectedIndex.intValue = it }
+                    }
+                    NonLazyGrid(
+                        columns = 2,
+                        itemCount = mostPopularPlants.size,
+                        modifier = Modifier.padding(8.dp)
+                    ) {
+                        ItemListMostPopularPlant(mostPopularPlants[it])
+                    }
+                }
+                item { BannerImageHome() }
+                item {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                    ) {
+                        Text(
+                            text = "Recently Shortlisted By You",
+                            style = MaterialTheme.typography.titleMedium
+                        )
+                        Text(
+                            modifier = Modifier.align(Alignment.CenterEnd),
+                            text = "See All",
+                            style = MaterialTheme.typography.labelMedium
+                        )
+                    }
+                    LazyRow(contentPadding = PaddingValues(8.dp, 20.dp)) {
+                        items(mostPopularPlants) {
+                            ItemListRecently(item = it)
+                        }
                     }
                 }
             }

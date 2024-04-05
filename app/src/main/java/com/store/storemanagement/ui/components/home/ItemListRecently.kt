@@ -1,11 +1,10 @@
 package com.store.storemanagement.ui.components.home
 
-import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,8 +17,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
-import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -40,25 +37,21 @@ import com.store.storemanagement.domain.model.CategoryPlant
 import com.store.storemanagement.domain.model.Plant
 
 @Composable
-fun ItemListMostPopularPlant(item: Plant) {
-    Box(Modifier.padding(8.dp)) {
+fun ItemListRecently(item: Plant) {
+    Column(
+        Modifier
+            .width(IntrinsicSize.Min)
+            .padding(start = 8.dp, end = 8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Box(
             modifier = Modifier
-                .padding(top = 72.dp)
-                .fillMaxWidth()
-                .height(220.dp)
-                .clip(RoundedCornerShape(topStart = 200.dp, topEnd = 200.dp))
+                .clip(RoundedCornerShape(24.dp))
                 .background(MaterialTheme.colorScheme.onTertiary)
-        )
-        Column(
-            modifier = Modifier
-                .padding(16.dp)
-                .align(Alignment.Center)
+                .padding(horizontal = 32.dp, vertical = 16.dp)
         ) {
             AsyncImage(
-                modifier = Modifier
-                    .size(110.dp, 192.dp)
-                    .align(CenterHorizontally),
+                modifier = Modifier.size(110.dp, 192.dp),
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(item.image)
                     .crossfade(true)
@@ -66,50 +59,40 @@ fun ItemListMostPopularPlant(item: Plant) {
                 contentDescription = null,
                 contentScale = ContentScale.FillBounds
             )
+        }
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = item.title,
+            style = MaterialTheme.typography.titleMedium,
+            textAlign = TextAlign.Center
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Row {
             Text(
-                text = item.title,
-                style = MaterialTheme.typography.titleMedium,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .align(CenterHorizontally)
-            )
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Row(Modifier.align(CenterVertically)) {
-                    Text(
-                        text = "\$80",
-                        style = TextStyle(
-                            color = MaterialTheme.colorScheme.primary,
-                            fontWeight = FontWeight.Bold,
-                            fontStyle = FontStyle.Italic
-                        )
-                    )
-                    Spacer(modifier = Modifier.width(5.dp))
-                    Text(
-                        text = "\$95",
-                        style = TextStyle(
-                            textDecoration = TextDecoration.LineThrough,
-                            color = Color.Gray,
-                            fontStyle = FontStyle.Italic
-                        )
-                    )
-                }
-                Image(
-                    painter = painterResource(id = R.drawable.baseline_favorite_24),
-                    contentDescription = null
+                text = "\$${item.price}",
+                style = TextStyle(
+                    color = MaterialTheme.colorScheme.primary,
+                    fontWeight = FontWeight.Bold,
+                    fontStyle = FontStyle.Italic
                 )
-            }
+            )
+            Spacer(modifier = Modifier.width(5.dp))
+            Text(
+                text = "\$${item.price * 1.2}",
+                style = TextStyle(
+                    textDecoration = TextDecoration.LineThrough,
+                    color = Color.Gray,
+                    fontStyle = FontStyle.Italic
+                )
+            )
         }
     }
 }
 
 @Preview
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun PreviewItemListMostPopular() {
-    ItemListMostPopularPlant(
+fun PreviewItemListRecently() {
+    ItemListRecently(
         Plant(
             "Royal Bluebell Bliss (M)",
             "https://plantzone.dexignzone.com/mobile/xhtml/assets/images/product/product1/pic4.png",

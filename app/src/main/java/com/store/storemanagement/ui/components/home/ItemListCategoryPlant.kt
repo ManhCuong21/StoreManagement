@@ -4,6 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -19,6 +21,12 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.store.storemanagement.domain.model.CategoryPlant
 import com.store.storemanagement.ui.theme.StoreManagementTheme
+
+fun LazyListScope.listCategoryPlant(list: List<CategoryPlant>) {
+    items(
+        items = list,
+        itemContent = { ItemListCategoryPlant(item = it) })
+}
 
 @Composable
 fun ItemListCategoryPlant(item: CategoryPlant) {
