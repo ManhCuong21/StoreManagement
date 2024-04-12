@@ -114,7 +114,8 @@ fun PreviewItemListMostPopular() {
             "Royal Bluebell Bliss (M)",
             "https://plantzone.dexignzone.com/mobile/xhtml/assets/images/product/product1/pic4.png",
             CategoryPlant("", ""),
-            80
+            80,
+            0
         )
     )
 }

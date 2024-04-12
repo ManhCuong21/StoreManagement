@@ -4,5 +4,6 @@ data class Plant(
     val title: String,
     val image: String,
     val categoryPlant: CategoryPlant,
-    val price: Int
+    val price: Int,
+    val review: Int
 )

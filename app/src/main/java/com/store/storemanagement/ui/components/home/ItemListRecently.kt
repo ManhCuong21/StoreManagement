@@ -1,13 +1,11 @@
 package com.store.storemanagement.ui.components.home
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -22,7 +20,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -32,16 +29,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.store.storemanagement.R
 import com.store.storemanagement.domain.model.CategoryPlant
 import com.store.storemanagement.domain.model.Plant
+import kotlin.math.roundToInt
 
 @Composable
 fun ItemListRecently(item: Plant) {
     Column(
         Modifier
             .width(IntrinsicSize.Min)
-            .padding(start = 8.dp, end = 8.dp),
+            .padding(horizontal = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
@@ -78,7 +75,7 @@ fun ItemListRecently(item: Plant) {
             )
             Spacer(modifier = Modifier.width(5.dp))
             Text(
-                text = "\$${item.price * 1.2}",
+                text = "\$${(item.price * 1.2).roundToInt()}",
                 style = TextStyle(
                     textDecoration = TextDecoration.LineThrough,
                     color = Color.Gray,
@@ -97,7 +94,8 @@ fun PreviewItemListRecently() {
             "Royal Bluebell Bliss (M)",
             "https://plantzone.dexignzone.com/mobile/xhtml/assets/images/product/product1/pic4.png",
             CategoryPlant("", ""),
-            80
+            80,
+            0
         )
     )
 }
