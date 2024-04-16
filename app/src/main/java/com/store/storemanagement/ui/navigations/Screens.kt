@@ -1,8 +1,45 @@
 package com.store.storemanagement.ui.navigations
 
-sealed class Screens(var route: String) {
-    object  Home : Screens("home_screen")
-    object  Favorite : Screens("favorite_screen")
-    object  Cart : Screens("cart_screen")
-    object  Profile : Screens("profile_screen")
+import com.store.storemanagement.R
+
+sealed class Screens(
+    val route: String,
+    val title: String,
+    val icon: Int,
+    val iconFocused: Int
+) {
+    data object Home : Screens(
+        route = "home_screen",
+        title = "Home",
+        icon = R.drawable.ic_home_24,
+        iconFocused = R.drawable.ic_home_24
+    )
+
+    data object Favorite : Screens(
+        route = "favorite_screen",
+        title = "Wishlist",
+        icon = R.drawable.baseline_favorite_border_24,
+        iconFocused = R.drawable.baseline_favorite_border_24
+    )
+
+    data object Cart : Screens(
+        route = "cart_screen",
+        title = "Cart",
+        icon = R.drawable.ic_shopping_cart_24,
+        iconFocused = R.drawable.ic_shopping_cart_24
+    )
+
+    data object Category : Screens(
+        route = "category_screen",
+        title = "Category",
+        icon = R.drawable.ic_category_24,
+        iconFocused = R.drawable.ic_category_24
+    )
+
+    data object Profile : Screens(
+        route = "profile_screen",
+        title = "Profile",
+        icon = R.drawable.ic_account_circle_24,
+        iconFocused = R.drawable.ic_account_circle_24
+    )
 }
