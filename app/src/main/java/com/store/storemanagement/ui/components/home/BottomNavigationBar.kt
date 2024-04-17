@@ -92,7 +92,7 @@ fun AddItem(
             horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Icon(
-                painter = painterResource(id = if (selected) screen.iconFocused else screen.icon),
+                painter = painterResource(id = (if (selected) screen.iconFocused else screen.icon)!!),
                 contentDescription = "icon",
                 tint = contentColor
             )

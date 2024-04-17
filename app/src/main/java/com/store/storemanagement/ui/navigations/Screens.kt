@@ -5,9 +5,14 @@ import com.store.storemanagement.R
 sealed class Screens(
     val route: String,
     val title: String,
-    val icon: Int,
-    val iconFocused: Int
+    val icon: Int? = null,
+    val iconFocused: Int? = null
 ) {
+    data object Main : Screens(
+        route = "main_screen",
+        title = "Main"
+    )
+
     data object Home : Screens(
         route = "home_screen",
         title = "Home",

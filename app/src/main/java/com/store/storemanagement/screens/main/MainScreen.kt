@@ -17,20 +17,19 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.store.storemanagement.ui.components.home.BottomNavigationBar
 import com.store.storemanagement.ui.components.home.NavigationDrawerBody
 import com.store.storemanagement.ui.components.home.NavigationDrawerHeader
 import com.store.storemanagement.ui.components.topappbar.TopAppBarMain
-import com.store.storemanagement.ui.navigations.BottomNavGraph
 import com.store.storemanagement.ui.theme.StoreManagementTheme
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen() {
+fun MainScreen(navHostController: NavHostController) {
     val scope = rememberCoroutineScope()
-    val navController = rememberNavController()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     ModalNavigationDrawer(
@@ -47,7 +46,7 @@ fun MainScreen() {
         Scaffold(
             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             topBar = {
-                TopAppBarMain(navController, scrollBehavior, onClickDrawer = {
+                TopAppBarMain(navHostController, scrollBehavior, onClickDrawer = {
                     scope.launch {
                         drawerState.apply {
                             if (isClosed) open() else close()
@@ -55,14 +54,14 @@ fun MainScreen() {
                     }
                 })
             },
-            bottomBar = { BottomNavigationBar(navController = navController) }
+            bottomBar = { BottomNavigationBar(navController = navHostController) }
         ) { innerPadding ->
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
             ) {
-                BottomNavGraph(navController = navController)
+
             }
         }
     }
@@ -73,6 +72,6 @@ fun MainScreen() {
 @Composable
 fun MainScreenPreview() {
     StoreManagementTheme {
-        MainScreen()
+        MainScreen(rememberNavController())
     }
 }

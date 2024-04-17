@@ -6,7 +6,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
 import com.store.storemanagement.screens.main.MainScreen
+import com.store.storemanagement.ui.navigations.NavGraph
 import com.store.storemanagement.ui.theme.StoreManagementTheme
 
 class MainActivity : ComponentActivity() {
@@ -14,7 +16,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             StoreManagementTheme {
-                MainScreen()
+                val navController = rememberNavController()
+                NavGraph(navController = navController)
             }
         }
     }
@@ -25,6 +28,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     StoreManagementTheme {
-        MainScreen()
+        MainScreen(rememberNavController())
     }
 }
