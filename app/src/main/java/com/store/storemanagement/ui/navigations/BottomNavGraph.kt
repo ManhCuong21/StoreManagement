@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.store.storemanagement.screens.home.HomeScreen
+import com.store.storemanagement.screens.wishlist.WishListScreen
 
 @Stable
 @Composable
@@ -22,7 +23,7 @@ fun BottomNavGraph(
         }
         composable(route = Screens.Favorite.route)
         {
-            HomeScreen()
+            WishListScreen()
         }
         composable(route = Screens.Cart.route)
         {

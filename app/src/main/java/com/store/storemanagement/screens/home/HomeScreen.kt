@@ -113,12 +113,8 @@ fun HomeScreen() {
         )
     }
     val selectedIndex = remember { mutableIntStateOf(0) }
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-//            .nestedScroll(scrollBehavior.nestedScrollConnection)
-//            .padding(innerPadding)
-    ) {
+
+    LazyColumn(modifier = Modifier.fillMaxSize()) {
         item { InputOutLinedTextField() }
         item { Spacer(modifier = Modifier.padding(8.dp)) }
         item {

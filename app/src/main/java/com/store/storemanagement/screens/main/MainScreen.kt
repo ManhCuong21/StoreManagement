@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
@@ -22,7 +21,7 @@ import androidx.navigation.compose.rememberNavController
 import com.store.storemanagement.ui.components.home.BottomNavigationBar
 import com.store.storemanagement.ui.components.home.NavigationDrawerBody
 import com.store.storemanagement.ui.components.home.NavigationDrawerHeader
-import com.store.storemanagement.ui.components.home.TopAppBarHome
+import com.store.storemanagement.ui.components.topappbar.TopAppBarMain
 import com.store.storemanagement.ui.navigations.BottomNavGraph
 import com.store.storemanagement.ui.theme.StoreManagementTheme
 import kotlinx.coroutines.launch
@@ -46,9 +45,9 @@ fun MainScreen() {
         },
     ) {
         Scaffold(
-            containerColor = MaterialTheme.colorScheme.background,
+            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             topBar = {
-                TopAppBarHome(scrollBehavior, onClickDrawer = {
+                TopAppBarMain(navController, scrollBehavior, onClickDrawer = {
                     scope.launch {
                         drawerState.apply {
                             if (isClosed) open() else close()
@@ -61,9 +60,8 @@ fun MainScreen() {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .nestedScroll(scrollBehavior.nestedScrollConnection)
                     .padding(innerPadding)
-            ){
+            ) {
                 BottomNavGraph(navController = navController)
             }
         }
