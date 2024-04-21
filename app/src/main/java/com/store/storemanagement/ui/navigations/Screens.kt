@@ -1,12 +1,13 @@
 package com.store.storemanagement.ui.navigations
 
+import androidx.annotation.DrawableRes
 import com.store.storemanagement.R
 
 sealed class Screens(
     val route: String,
     val title: String,
-    val icon: Int? = null,
-    val iconFocused: Int? = null
+    @DrawableRes val icon: Int? = null,
+    @DrawableRes val iconFocused: Int? = null
 ) {
     data object Main : Screens(
         route = "main_screen",

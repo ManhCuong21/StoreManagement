@@ -20,15 +20,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.store.storemanagement.ui.navigations.Screens
 
 @Composable
-fun BottomNavigationBar(navController: NavHostController) {
+fun BottomNavigationBar(navController: NavController, mainNavController: NavController) {
     val screens = listOf(
         Screens.Home,
         Screens.Favorite,
@@ -37,7 +37,7 @@ fun BottomNavigationBar(navController: NavHostController) {
         Screens.Profile
     )
 
-    val navStackBackEntry = navController.currentBackStackEntryAsState()
+    val navStackBackEntry = mainNavController.currentBackStackEntryAsState()
     val currentDestination = navStackBackEntry.value?.destination
 
     Row(
@@ -52,7 +52,8 @@ fun BottomNavigationBar(navController: NavHostController) {
             AddItem(
                 screen = screen,
                 currentDestination = currentDestination,
-                navController = navController
+                navController = navController,
+                mainNavController = mainNavController
             )
         }
     }
@@ -63,7 +64,8 @@ fun BottomNavigationBar(navController: NavHostController) {
 fun AddItem(
     screen: Screens,
     currentDestination: NavDestination?,
-    navController: NavHostController
+    navController: NavController,
+    mainNavController: NavController
 ) {
     val selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true
 
@@ -79,9 +81,16 @@ fun AddItem(
             .clip(CircleShape)
             .background(background)
             .clickable(onClick = {
-                navController.navigate(screen.route) {
-                    popUpTo(navController.graph.findStartDestination().id)
-                    launchSingleTop = true
+                when (screen.route) {
+                    Screens.Cart.route -> navController.navigate(screen.route) {
+                        popUpTo(navController.graph.findStartDestination().id)
+                        launchSingleTop = true
+                    }
+
+                    else -> mainNavController.navigate(screen.route) {
+                        popUpTo(mainNavController.graph.findStartDestination().id)
+                        launchSingleTop = true
+                    }
                 }
             })
     ) {

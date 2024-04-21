@@ -17,19 +17,21 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.store.storemanagement.ui.components.home.BottomNavigationBar
 import com.store.storemanagement.ui.components.home.NavigationDrawerBody
 import com.store.storemanagement.ui.components.home.NavigationDrawerHeader
 import com.store.storemanagement.ui.components.topappbar.TopAppBarMain
+import com.store.storemanagement.ui.navigations.MainNavGraph
 import com.store.storemanagement.ui.theme.StoreManagementTheme
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(navHostController: NavHostController) {
+fun MainScreen(navController: NavController) {
     val scope = rememberCoroutineScope()
+    val mainNavController = rememberNavController()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     ModalNavigationDrawer(
@@ -46,7 +48,7 @@ fun MainScreen(navHostController: NavHostController) {
         Scaffold(
             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             topBar = {
-                TopAppBarMain(navHostController, scrollBehavior, onClickDrawer = {
+                TopAppBarMain(mainNavController, scrollBehavior, onClickDrawer = {
                     scope.launch {
                         drawerState.apply {
                             if (isClosed) open() else close()
@@ -54,14 +56,19 @@ fun MainScreen(navHostController: NavHostController) {
                     }
                 })
             },
-            bottomBar = { BottomNavigationBar(navController = navHostController) }
+            bottomBar = {
+                BottomNavigationBar(
+                    navController = navController,
+                    mainNavController = mainNavController
+                )
+            }
         ) { innerPadding ->
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
             ) {
-
+                MainNavGraph(mainNavController)
             }
         }
     }
