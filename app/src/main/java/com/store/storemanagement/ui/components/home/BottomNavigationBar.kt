@@ -28,7 +28,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.store.storemanagement.ui.navigations.Screens
 
 @Composable
-fun BottomNavigationBar(navController: NavController, mainNavController: NavController) {
+fun BottomNavigationBarMain(navController: NavController, mainNavController: NavController) {
     val screens = listOf(
         Screens.Home,
         Screens.Favorite,

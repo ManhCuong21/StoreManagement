@@ -19,7 +19,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.store.storemanagement.ui.components.home.BottomNavigationBar
+import com.store.storemanagement.ui.components.home.BottomNavigationBarMain
 import com.store.storemanagement.ui.components.home.NavigationDrawerBody
 import com.store.storemanagement.ui.components.home.NavigationDrawerHeader
 import com.store.storemanagement.ui.components.topappbar.TopAppBarMain
@@ -57,7 +57,7 @@ fun MainScreen(navController: NavController) {
                 })
             },
             bottomBar = {
-                BottomNavigationBar(
+                BottomNavigationBarMain(
                     navController = navController,
                     mainNavController = mainNavController
                 )
