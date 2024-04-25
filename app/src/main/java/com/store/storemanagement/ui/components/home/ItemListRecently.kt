@@ -91,6 +91,7 @@ fun ItemListRecently(item: Plant) {
 fun PreviewItemListRecently() {
     ItemListRecently(
         Plant(
+            1,
             "Royal Bluebell Bliss (M)",
             "https://plantzone.dexignzone.com/mobile/xhtml/assets/images/product/product1/pic4.png",
             CategoryPlant("", ""),

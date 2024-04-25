@@ -26,7 +26,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -35,12 +34,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.store.storemanagement.R
-import com.store.storemanagement.domain.model.Plant
+import com.store.storemanagement.domain.model.Cart
 import kotlin.math.roundToInt
 
 @Composable
-fun ItemListCart(item: Plant, totalAmount: (String, Int) -> Unit) {
-    var count by remember { mutableStateOf(1) }
+fun ItemListCart(
+    cart: Cart,
+    countQuantity: (String, Int) -> Unit,
+    totalAmount: (String, Int) -> Unit,
+    onClickRemove: (Int) -> Unit
+) {
+    var quantity by remember { mutableStateOf(cart.quantity) }
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -60,7 +64,7 @@ fun ItemListCart(item: Plant, totalAmount: (String, Int) -> Unit) {
             Spacer(modifier = Modifier.height(8.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
-                    text = "\$${item.price}",
+                    text = "\$${cart.plant.price}",
                     style = TextStyle(
                         color = MaterialTheme.colorScheme.primary,
                         fontWeight = FontWeight.Bold,
@@ -69,7 +73,7 @@ fun ItemListCart(item: Plant, totalAmount: (String, Int) -> Unit) {
                 )
                 Spacer(modifier = Modifier.width(5.dp))
                 Text(
-                    text = "\$${(item.price * 1.2).roundToInt()}",
+                    text = "\$${(cart.plant.price * 1.2).roundToInt()}",
                     style = TextStyle(
                         textDecoration = TextDecoration.LineThrough,
                         color = Color.Gray,
@@ -80,30 +84,41 @@ fun ItemListCart(item: Plant, totalAmount: (String, Int) -> Unit) {
                     painter = painterResource(id = R.drawable.baseline_star_24),
                     contentDescription = null
                 )
-                Text(text = "(${item.review} Review)")
+                Text(text = "(${cart.plant.review} Review)")
             }
             Spacer(modifier = Modifier.height(8.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
                 IconButton(onClick = {
-                    if (count > 1) {
-                        count -= 1
-                        totalAmount("Remove", item.price)
+                    if (quantity > 1) {
+                        quantity -= 1
+                        countQuantity("Remove", 1)
+                        totalAmount("Remove", cart.plant.price)
                     }
                 }) {
                     Icon(
-                        modifier = Modifier.clip(RoundedCornerShape(24.dp)),
                         painter = painterResource(id = R.drawable.ic_remove_24),
-                        contentDescription = null
+                        contentDescription = null,
+                        modifier = Modifier
+                            .background(MaterialTheme.colorScheme.onPrimaryContainer, CircleShape)
+                            .padding(6.dp)
                     )
                 }
-                Text(text = "$count", style = MaterialTheme.typography.titleMedium)
+                Text(
+                    text = "$quantity",
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
                 IconButton(onClick = {
-                    count += 1
-                    totalAmount("Add", item.price)
+                    quantity += 1
+                    countQuantity("Add", 1)
+                    totalAmount("Add", cart.plant.price)
                 }) {
                     Icon(
                         imageVector = Icons.Filled.Add,
-                        contentDescription = null
+                        contentDescription = null,
+                        modifier = Modifier
+                            .background(MaterialTheme.colorScheme.onPrimaryContainer, CircleShape)
+                            .padding(6.dp)
                     )
                 }
             }
@@ -123,7 +138,7 @@ fun ItemListCart(item: Plant, totalAmount: (String, Int) -> Unit) {
                         contentDescription = null,
                         tint = Color(229, 79, 78)
                     )
-                }, onClick = {}
+                }, onClick = { onClickRemove(cart.plant.id) }
             )
         }
     }

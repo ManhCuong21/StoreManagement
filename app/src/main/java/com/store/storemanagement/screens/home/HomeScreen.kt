@@ -20,8 +20,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -83,6 +85,7 @@ fun HomeScreen() {
     val mostPopularPlants = remember {
         listOf(
             Plant(
+                1,
                 "Emerald Fern Fronds (M)",
                 "https://plantzone.dexignzone.com/mobile/xhtml/assets/images/product/product1/pic1.png",
                 CategoryPlant("", ""),
@@ -90,6 +93,7 @@ fun HomeScreen() {
                 0
             ),
             Plant(
+                2,
                 "Scarlet Petal Paradise (M)",
                 "https://plantzone.dexignzone.com/mobile/xhtml/assets/images/product/product1/pic2.png",
                 CategoryPlant("", ""),
@@ -97,6 +101,7 @@ fun HomeScreen() {
                 0
             ),
             Plant(
+                3,
                 "Silver Leaf Serenity (M)",
                 "https://plantzone.dexignzone.com/mobile/xhtml/assets/images/product/product1/pic3.png",
                 CategoryPlant("", ""),
@@ -104,6 +109,7 @@ fun HomeScreen() {
                 0
             ),
             Plant(
+                4,
                 "Royal Bluebell Bliss (M)",
                 "https://plantzone.dexignzone.com/mobile/xhtml/assets/images/product/product1/pic4.png",
                 CategoryPlant("", ""),
@@ -112,7 +118,7 @@ fun HomeScreen() {
             )
         )
     }
-    val selectedIndex = remember { mutableIntStateOf(0) }
+    var selectedIndex by remember { mutableIntStateOf(0) }
 
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         item { InputOutLinedTextField() }
@@ -148,8 +154,8 @@ fun HomeScreen() {
             LazyRow(contentPadding = PaddingValues(16.dp, 20.dp)) {
                 listTitleMostPopular(
                     titleMostPopularPlants,
-                    selectedIndex.intValue
-                ) { selectedIndex.intValue = it }
+                    selectedIndex
+                ) { selectedIndex = it }
             }
             NonLazyGrid(
                 columns = 2,

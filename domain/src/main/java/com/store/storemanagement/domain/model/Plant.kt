@@ -1,6 +1,7 @@
 package com.store.storemanagement.domain.model
 
 data class Plant(
+    val id: Int,
     val title: String,
     val image: String,
     val categoryPlant: CategoryPlant,
