@@ -1,4 +1,4 @@
-package com.store.storemanagement.screens.cart
+package com.store.storemanagement.ui.components.cart
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

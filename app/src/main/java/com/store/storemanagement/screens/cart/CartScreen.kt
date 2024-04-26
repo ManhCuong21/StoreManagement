@@ -20,6 +20,9 @@ import androidx.navigation.NavController
 import com.store.storemanagement.domain.model.Cart
 import com.store.storemanagement.domain.model.CategoryPlant
 import com.store.storemanagement.domain.model.Plant
+import com.store.storemanagement.ui.components.cart.BottomAppBarCart
+import com.store.storemanagement.ui.components.cart.ItemListCart
+import com.store.storemanagement.ui.components.cart.TopAppBarCart
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

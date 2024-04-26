@@ -1,5 +1,6 @@
 package com.store.storemanagement.screens.home
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -46,6 +47,7 @@ import com.store.storemanagement.ui.components.home.BannerImageHome
 import com.store.storemanagement.ui.components.home.ItemListMostPopularPlant
 import com.store.storemanagement.ui.components.home.ItemListRecently
 import com.store.storemanagement.ui.components.home.ListCartHome
+import com.store.storemanagement.ui.components.home.ListOutstandingPlant
 import com.store.storemanagement.ui.components.home.ListSliderPopularNearby
 import com.store.storemanagement.ui.components.home.listCategoryPlant
 import com.store.storemanagement.ui.components.home.listTitleMostPopular
@@ -82,7 +84,7 @@ fun HomeScreen() {
             TitleMostPopularPlant("Ferns")
         )
     }
-    val mostPopularPlants = remember {
+    val listPlants = remember {
         listOf(
             Plant(
                 1,
@@ -124,6 +126,11 @@ fun HomeScreen() {
         item { InputOutLinedTextField() }
         item { Spacer(modifier = Modifier.padding(8.dp)) }
         item {
+            Box {
+                ListOutstandingPlant(listPlants)
+            }
+        }
+        item {
             Column(modifier = Modifier.fillMaxWidth()) {
                 Text(
                     text = "Find Plant Category",
@@ -159,10 +166,10 @@ fun HomeScreen() {
             }
             NonLazyGrid(
                 columns = 2,
-                itemCount = mostPopularPlants.size,
+                itemCount = listPlants.size,
                 modifier = Modifier.padding(8.dp)
             ) {
-                ItemListMostPopularPlant(mostPopularPlants[it])
+                ItemListMostPopularPlant(listPlants[it])
             }
         }
         item { BannerImageHome() }
@@ -183,7 +190,7 @@ fun HomeScreen() {
                 )
             }
             LazyRow(contentPadding = PaddingValues(horizontal = 8.dp)) {
-                items(mostPopularPlants) {
+                items(listPlants) {
                     ItemListRecently(item = it)
                 }
             }
@@ -211,7 +218,7 @@ fun HomeScreen() {
                         modifier = Modifier.align(Alignment.CenterEnd)
                     )
                 }
-                ListCartHome(mostPopularPlants)
+                ListCartHome(listPlants)
                 ClickableText(text = AnnotatedString("Proceed to checkout (3)"),
                     style = TextStyle(
                         color = MaterialTheme.colorScheme.onPrimary,
@@ -257,7 +264,7 @@ fun HomeScreen() {
                     .height(195.dp),
                 contentScale = ContentScale.FillBounds
             )
-            ListSliderPopularNearby(list = mostPopularPlants)
+            ListSliderPopularNearby(list = listPlants)
         }
         item {
             Box(
