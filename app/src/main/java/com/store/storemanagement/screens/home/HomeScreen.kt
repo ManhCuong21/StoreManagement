@@ -1,6 +1,5 @@
 package com.store.storemanagement.screens.home
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -126,9 +125,7 @@ fun HomeScreen() {
         item { InputOutLinedTextField() }
         item { Spacer(modifier = Modifier.padding(8.dp)) }
         item {
-            Box {
-                ListOutstandingPlant(listPlants)
-            }
+            ListOutstandingPlant(listPlants)
         }
         item {
             Column(modifier = Modifier.fillMaxWidth()) {
