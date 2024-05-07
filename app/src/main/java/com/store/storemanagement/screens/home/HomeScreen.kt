@@ -46,7 +46,7 @@ import com.store.storemanagement.ui.components.home.BannerImageHome
 import com.store.storemanagement.ui.components.home.ItemListMostPopularPlant
 import com.store.storemanagement.ui.components.home.ItemListRecently
 import com.store.storemanagement.ui.components.home.ListCartHome
-import com.store.storemanagement.ui.components.home.ListOutstandingPlant
+import com.store.storemanagement.ui.components.home.listoutstanding.ListOutstandingPlant
 import com.store.storemanagement.ui.components.home.ListSliderPopularNearby
 import com.store.storemanagement.ui.components.home.listCategoryPlant
 import com.store.storemanagement.ui.components.home.listTitleMostPopular
@@ -123,9 +123,10 @@ fun HomeScreen() {
 
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         item { InputOutLinedTextField() }
-        item { Spacer(modifier = Modifier.padding(8.dp)) }
         item {
+            Spacer(modifier = Modifier.height(16.dp))
             ListOutstandingPlant(listPlants)
+            Spacer(modifier = Modifier.height(16.dp))
         }
         item {
             Column(modifier = Modifier.fillMaxWidth()) {

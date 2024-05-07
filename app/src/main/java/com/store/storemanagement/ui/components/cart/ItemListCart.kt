@@ -138,7 +138,10 @@ fun ItemListCart(
                         contentDescription = null,
                         tint = Color(229, 79, 78)
                     )
-                }, onClick = { onClickRemove(cart.plant.id) }
+                }, onClick = {
+                    totalAmount("Remove", cart.quantity * cart.plant.price)
+                    onClickRemove(cart.plant.id)
+                }
             )
         }
     }
