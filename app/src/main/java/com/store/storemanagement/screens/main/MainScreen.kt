@@ -20,8 +20,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.store.storemanagement.ui.components.home.BottomNavigationBarMain
-import com.store.storemanagement.ui.components.home.NavigationDrawerBody
-import com.store.storemanagement.ui.components.home.NavigationDrawerHeader
+import com.store.storemanagement.ui.components.home.navigationdrawer.NavigationDrawerBody
+import com.store.storemanagement.ui.components.home.navigationdrawer.NavigationDrawerHeader
 import com.store.storemanagement.ui.components.topappbar.TopAppBarMain
 import com.store.storemanagement.ui.navigations.MainNavGraph
 import com.store.storemanagement.ui.theme.StoreManagementTheme
