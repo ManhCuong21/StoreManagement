@@ -40,7 +40,6 @@ jobs:
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
-    - run: rmdir /home/runner/work/StoreManagement/StoreManagement/.firebase/hosting.cHVibGlj.cache
 #    - run: firebase deploy
     - uses: FirebaseExtended/action-hosting-deploy@v0
       with:
