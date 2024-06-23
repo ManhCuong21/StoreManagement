@@ -40,13 +40,7 @@ jobs:
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
-#    - name: Deploy to Firebase
-    - uses: actions/cache@v2
-      with:
-        path: ~/.firebase
-        key: ${{ runner.os }}-firebase-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-firebase-
+    - run: rmdir /home/runner/work/StoreManagement/StoreManagement/.firebase/hosting.cHVibGlj.cache
     - run: firebase deploy
     - uses: FirebaseExtended/action-hosting-deploy@v0
       with:
@@ -55,22 +49,8 @@ jobs:
         channelId: live
         projectId: store-management-9a7d4
 
-      #    - name: Login Firebase
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
-    - uses: w9jds/firebase-action@master
-      with:
-        args: deploy
-      env:
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-#    - name: Deploy to Firebase
-#      uses: actions/checkout@v4
-    - uses: actions/cache@v2
-      with:
-        path: ~/.firebase
-        key: ${{ runner.os }}-firebase-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-firebase-
+    - name: Deploy to Firebase
+      uses: actions/checkout@v4
     - run: firebase deploy
     - uses: FirebaseExtended/action-hosting-deploy@v0
       with:
