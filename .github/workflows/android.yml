@@ -5,7 +5,10 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
+    permissions:
+      checks: write
+      contents: read
+      pull-requests: write
 jobs:
   build:
 
@@ -40,6 +43,8 @@ jobs:
     - name: Deploy to Firebase
       uses: actions/checkout@v4
     - run: firebase deploy
+    - run: npm ci
+    - run: npm run build
     - uses: FirebaseExtended/action-hosting-deploy@v0
       with:
         repoToken: ${{ secrets.GITHUB_TOKEN }}
