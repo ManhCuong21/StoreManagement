@@ -39,18 +39,23 @@ jobs:
         args: deploy
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-    - run: chmod -R 755 .firebase
+
     - name: Deploy to Firebase
-      uses: actions/checkout@v4
-    - run: firebase deploy
+      uses: actions/checkout@v2
+#    - run: firebase deploy
     - run: npm ci
     - run: npm run build
+    - uses: actions/upload-artifact@v2
+      with:
+        name: dist
+        path: dist
     - uses: FirebaseExtended/action-hosting-deploy@v0
       with:
         repoToken: ${{ secrets.GITHUB_TOKEN }}
         firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_STORE_MANAGEMENT_9A7D4 }}
         channelId: live
         projectId: store-management-9a7d4
+        inputDirectory: dist
 
     - name: Deploy to Firebase
       uses: actions/checkout@v4
