@@ -47,8 +47,6 @@ jobs:
         key: ${{ runner.os }}-firebase-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-firebase-
-    - run: npm ci
-    - run: npm run build
     - uses: FirebaseExtended/action-hosting-deploy@v0
       with:
         repoToken: ${{ secrets.GITHUB_TOKEN }}
