@@ -54,6 +54,14 @@ jobs:
         channelId: live
         projectId: store-management-9a7d4
 
+      #    - name: Login Firebase
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+    - uses: w9jds/firebase-action@master
+      with:
+        args: deploy
+      env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 #    - name: Deploy to Firebase
 #      uses: actions/checkout@v4
     - uses: actions/cache@v2
