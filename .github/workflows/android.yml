@@ -54,8 +54,14 @@ jobs:
         channelId: live
         projectId: store-management-9a7d4
 
-    - name: Deploy to Firebase
-      uses: actions/checkout@v4
+#    - name: Deploy to Firebase
+#      uses: actions/checkout@v4
+    - uses: actions/cache@v2
+      with:
+        path: ~/.firebase
+        key: ${{ runner.os }}-firebase-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-firebase-
     - run: firebase deploy
     - uses: FirebaseExtended/action-hosting-deploy@v0
       with:
