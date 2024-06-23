@@ -33,10 +33,11 @@ jobs:
 
     - name: Deploy to Firebase Distribution
       env:
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_STORE_MANAGEMENT_9A7D4 }}
       run: |
+        echo $FIREBASE_TOKEN > $HOME/firebase.json
         npm install -g firebase-tools
-        firebase appdistribution:distribute path/to/your/app.apk --release-notes "Release notes for this version" --groups internal-testers
+        firebase appdistribution:distribute path/to/your/app.apk --app your-firebase-app-id --release-notes "Release notes for this version" --groups internal-testers
 #    - name: Login Firebase
 #    - uses: actions/checkout@v2
 #    - uses: actions/setup-node@v2
