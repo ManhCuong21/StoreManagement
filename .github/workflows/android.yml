@@ -36,12 +36,12 @@ jobs:
     - name: Firebase Deploy
       run: |
        firebase deploy --only hosting
-      working-directory: google-services.json
+      working-directory: ../google-services.json
       env:
         FIREBASE_SERVICE_ACCOUNT_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
 
     - name: Deploy to Firebase Hosting
       run: firebase deploy --only hosting
-      working-directory: google-services.json
+      working-directory: ../google-services.json
       env:
         FIREBASE_SERVICE_ACCOUNT_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
