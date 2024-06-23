@@ -32,3 +32,7 @@ jobs:
        firebase deploy --only hosting
       env:
         FIREBASE_SERVICE_ACCOUNT_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
+    - name: Deploy to Firebase Hosting
+      run: firebase deploy --only hosting
+      env:
+        FIREBASE_SERVICE_ACCOUNT_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
