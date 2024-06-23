@@ -39,7 +39,7 @@ jobs:
         args: deploy
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-
+    - run: chmod -R 755 .firebase
     - name: Deploy to Firebase
       uses: actions/checkout@v4
     - run: firebase deploy
