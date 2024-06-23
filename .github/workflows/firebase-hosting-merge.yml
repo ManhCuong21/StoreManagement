@@ -16,6 +16,11 @@ jobs:
       - name: Login Firebase
         run: firebase login
 
+      - name: Auth Github
+        uses: firebase-actions/auth@v1
+        with:
+        token: ${{ secrets.FIREBASE_TOKEN }}
+
       - uses: actions/checkout@v4
       - run: firebase deploy
       - uses: FirebaseExtended/action-hosting-deploy@v0
