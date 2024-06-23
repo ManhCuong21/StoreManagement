@@ -37,6 +37,6 @@ jobs:
 
       - name: Upload to Firebase App Distribution
         run: |
-          firebase appdistribution:distribute --app 1:314226506850:android:968b9c4aef457c6f32e53b --release-binary-file ./app/build/outputs/apk/release/app-release.apk
+          firebase appdistribution:distribute --app 1:314226506850:android:968b9c4aef457c6f32e53b --release-notes "Release notes for this version" --groups tester
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
