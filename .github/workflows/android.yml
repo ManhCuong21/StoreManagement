@@ -26,13 +26,23 @@ jobs:
       run: ./gradlew build
 
     - name: Install Firebase CLI
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
       run: npm install -g firebase-tools
+
+    - name: Firebase Login
+      run: firebase login --ci
+      env:
+        FIREBASE_SERVICE_ACCOUNT_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
+
     - name: Firebase Deploy
       run: |
        firebase deploy --only hosting
       working-directory: ./app
       env:
         FIREBASE_SERVICE_ACCOUNT_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
+
     - name: Deploy to Firebase Hosting
       run: firebase deploy --only hosting
       working-directory: ./app
