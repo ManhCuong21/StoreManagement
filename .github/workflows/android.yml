@@ -31,13 +31,18 @@ jobs:
     - name: Install Firebase CLI
       run: npm install -g firebase-tools
 
+    - name: Find APK/AAB file
+      id: find_file
+      run: |
+        ls -l app/build/outputs/apk/debug/*.apk || true
+        ls -l app/build/outputs/bundle/debug/*.aab || true
+
     - name: Deploy to Firebase Distribution
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_STORE_MANAGEMENT_9A7D4 }}
       run: |
-        echo $FIREBASE_TOKEN > $HOME/firebase.json
         npm install -g firebase-tools
-        firebase appdistribution:distribute path/to/your/app.apk --app your-firebase-app-id --release-notes "Release notes for this version" --groups internal-testers
+        firebase appdistribution:distribute ${{ steps.find_file.outputs.path }} --app your-firebase-app-id --release-notes "Release notes for this version" --groups internal-testers
 #    - name: Login Firebase
 #    - uses: actions/checkout@v2
 #    - uses: actions/setup-node@v2
