@@ -18,7 +18,7 @@ jobs:
 
       - name: Deploy to Firebase
         run: |
-          firebase deploy --only hosting
+          firebase deploy
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 #      - name: Deploy to Firebase
@@ -27,7 +27,7 @@ jobs:
 #        env:
 #          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
-      - run: firebase deploy
+#      - run: firebase deploy
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
