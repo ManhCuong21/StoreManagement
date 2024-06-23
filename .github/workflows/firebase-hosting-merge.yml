@@ -34,3 +34,9 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_STORE_MANAGEMENT_9A7D4 }}
           channelId: live
           projectId: store-management-9a7d4
+
+      - name: Upload to Firebase App Distribution
+        run: |
+          firebase appdistribution:distribute --app <your-app-id> --group <your-distribution-group> --file <path-to-your-app-file>
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
