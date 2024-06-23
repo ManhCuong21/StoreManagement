@@ -29,3 +29,5 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_STORE_MANAGEMENT_9A7D4 }}
           channelId: live
           projectId: store-management-9a7d4
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
