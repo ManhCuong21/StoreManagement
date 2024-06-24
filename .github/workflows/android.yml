@@ -33,4 +33,5 @@ jobs:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_STORE_MANAGEMENT_9A7D4 }}
       run: |
         npm install -g firebase-tools
-        firebase appdistribution:distribute --app 1:314226506850:android:968b9c4aef457c6f32e53b --apk $ANDROID_APK_PATH
+        curl -fL https://firebase.tools | sh
+        firebase appdistribution:distribute ./app/build/outputs/apk/debug/app-debug.apk --app 1:314226506850:android:968b9c4aef457c6f32e53b --token "${FIREBASE_TOKEN}"
