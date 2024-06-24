@@ -42,4 +42,4 @@ jobs:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_STORE_MANAGEMENT_9A7D4 }}
       run: |
         npm install -g firebase-tools
-        firebase appdistribution:distribute ${{ steps.find_file.outputs.path }} --app 1:314226506850:android:968b9c4aef457c6f32e53b --groups tester
+        firebase appdistribution:distribute ${{ steps.find_file.outputs.path }} --app 1:314226506850:android:968b9c4aef457c6f32e53b
