@@ -27,12 +27,20 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
 
-    - name: Get APK path
-      run: echo "ANDROID_APK_PATH=$(pwd)/app/build/outputs/apk/release/app-release.apk" >> $GITHUB_OUTPUT
+    - name: build release
+      run: ./gradlew assembleDebug
+    - name: upload artifact to Firebase App Distribution
+      uses: wzieba/Firebase-Distribution-Github-Action@v1.5.1
+      with:
+        appId: ${{secrets.FIREBASE_APP_ID}}
+        #token: ${{secrets.FIREBASE_TOKEN}}
+        serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_STORE_MANAGEMENT_9A7D4 }}
+        groups: tester
+        file: app/build/outputs/apk/debug/app-debug.apk
 
-    - name: Upload to Firebase App Distribution
-      env:
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_STORE_MANAGEMENT_9A7D4 }}
-      run: |
-        npm install -g firebase-tools
-        firebase appdistribution:distribute ls ./app/build/outputs/apk/debug/app-debug.apk --app 1:314226506850:android:968b9c4aef457c6f32e53b
+#    - name: Upload to Firebase App Distribution
+#      env:
+#        FIREBASE_TOKEN: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_STORE_MANAGEMENT_9A7D4 }}
+#      run: |
+#        npm install -g firebase-tools
+#        firebase appdistribution:distribute ls ./app/build/outputs/apk/debug/app-debug.apk --app 1:314226506850:android:968b9c4aef457c6f32e53b
