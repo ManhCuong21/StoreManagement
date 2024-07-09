@@ -38,10 +38,3 @@ jobs:
         FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
       run: |
         firebase appdistribution:distribute ./app/build/outputs/apk/debug/app-debug.apk --app $FIREBASE_APP_ID --token $FIREBASE_TOKEN
-
-#    - name: Upload to Firebase App Distribution
-#      env:
-#        FIREBASE_TOKEN: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_STORE_MANAGEMENT_9A7D4 }}
-#      run: |
-#        npm install -g firebase-tools
-#        firebase appdistribution:distribute ls ./app/build/outputs/apk/debug/app-debug.apk --app 1:314226506850:android:968b9c4aef457c6f32e53b
